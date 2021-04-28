@@ -23,7 +23,20 @@ class MainWindow(QStackedWidget):
         self.uiWindow.setupUi(self)
         self.uiWindow.Back.clicked.connect(lambda : self.setCurrentIndex(pagesDict['Home']))
 
-    
+    def show_info_popup(self,message):
+        #TODO change icon
+        msg = QMessageBox()
+        msg.setWindowTitle("Message")
+        msg.setText(message)
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
+
+    def show_warning_info(self,message):
+        msg = QMessageBox()
+        msg.setWindowTitle("Message")
+        msg.setText(message)
+        msg.setIcon(QMessageBox.Warning)
+        x = msg.exec_() 
 
     def maintain_operations(self):
         pass
