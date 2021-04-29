@@ -13,7 +13,7 @@ svm_model = joblib.load('models_final/svm.sav')
 xgb_model = joblib.load('models_final/xgb.sav')
 
 # print(accuracy_score(y_test, tree_yhat))
-transactions = pd.read_csv('datasets/creditcard.csv',index_col=None)
+transactions = pd.read_csv('datasets/data_part1.csv',index_col=None)
 processed_data = preprocessing(transactions)
 # print(processed_data[1:10])
 knn_output = rf_model.predict(processed_data)
