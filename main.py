@@ -15,8 +15,8 @@ algos_selected = []
 shortnames = {
             'Support Vector Machine':'svm',
             'Logistic Regression':'lr',
-            ' K-Nearest Neighbour':'knn',
-            ' Random Forest Tree':'rf',
+            'K-Nearest Model':'knn',
+            'Random Forest Model':'rf',
             'XGBoost Model':'xgb',
             'Decision Tree Model':'dt'
         }
@@ -65,14 +65,16 @@ class MainWindow(QStackedWidget):
         self.uiWindow.file_select.clicked.connect(lambda: self.file_dialog_open())
         self.uiWindow.run.clicked.connect(lambda: self.run_clicked())
         self.uiWindow.Back.clicked.connect(lambda: self.back_clicked())
-        for i in self.btns:
-            # print(i.text())
-            i.clicked.connect(lambda: self.model_clicked(i))
+        self.uiWindow.btn1_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn1_out))
+        self.uiWindow.btn2_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn2_out))
+        self.uiWindow.btn3_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn3_out))
+        self.uiWindow.btn4_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn4_out))
+        self.uiWindow.btn5_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn5_out))
+        self.uiWindow.btn6_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn6_out))
+        # for i in self.btns:
+        #     # print(i.text())
+        #     i.clicked.connect(lambda: self.model_clicked(i))
         # self.uiWindow.shade_opening_add_clear.clicked.connect(lambda: clear.clear_shade_opening_add(self))
-        # self.uiWindow.shade_opening_modify_clear.clicked.connect(lambda: clear.clear_shade_opening_modify(self))
-        # self.uiWindow.shade_opening_delete_clear.clicked.connect(lambda: clear.clear_shade_opening_delete(self))
-        # self.uiWindow.shade_opening_view_clear.clicked.connect(lambda: clear.clear_shade_opening_view(self))
-
 
     def file_dialog_open(self):
         options = QFileDialog.Options()
@@ -118,9 +120,10 @@ class MainWindow(QStackedWidget):
             i.show()
 
     def model_clicked(self, i):
-        print("model_clicked")
+        # print("model_clicked")
         self.setCurrentIndex(pagesDict['Output'])
         global output,shortnames
+        print(i.text())
         model_name = shortnames[i.text()]
         for j in output:
             if j['model_name'] == model_name:
