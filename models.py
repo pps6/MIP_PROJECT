@@ -28,12 +28,40 @@ model_data = {
 }
 
 # print(accuracy_score(y_test, tree_yhat))
-transactions = pd.read_csv('datasets/data_part1.csv',index_col=None)
-processed_data = preprocessing(transactions)
-# print(processed_data[1:10])
-knn_output = rf_model.predict(processed_data)
-# print(knn_output[knn_output==1])
-result = np.where(knn_output == 1)
-frauds_cases = result[0]
-print(frauds_cases)
-print(len(frauds_cases))
+
+def getFraudCases(model,data):
+    output = model.predict(data)
+    result = np.where(output == 1)
+    frauds_cases = result[0]
+    print(frauds_cases)
+    print(len(frauds_cases))
+    return frauds_cases
+
+
+
+def predict(datasetFile,models_selected):
+    transactions = pd.read_csv(datasetFile,index_col=None)
+    processed_data = preprocessing(transactions)
+    # print(processed_data[1:10]
+    getCases = lambda x:getFraudCases(x,processed_data)
+    
+    output_res []
+
+    for i in models_selected:
+        if i == 'svm':
+            fraud_cases = getCases(svm_model)   
+        if i == 'rf':
+            fraud_cases = getCases(rf_model)
+        if i == 'dt':
+            fraud_cases = getCases(dt_model)
+        if i == 'knn':
+            fraud_cases = getCases(knn_model)
+        if i == 'xgb':
+            fraud_cases = getCases(xgb_model)
+        if i == 'lr':
+            fraud_cases = getCases(lr_model)
+        output_res.append({
+            'model_name':i,
+            'output':fraud_cases
+        })
+    # print(knn_output[knn_output==1])

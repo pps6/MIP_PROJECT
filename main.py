@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
 from PyQt5.QtGui import QKeySequence
+from models import predict 
 
 pagesDict = {
         'Home': 0,
@@ -10,7 +11,7 @@ pagesDict = {
 }
 
 filename = ""
-models_selected = []
+algos_selected = []
 
 class MainWindow(QStackedWidget):
     def __init__(self,parent=None):
@@ -19,6 +20,16 @@ class MainWindow(QStackedWidget):
         self.startUIWindow()
         self.maintain_operations()
         self.show()
+        self.btns = [self.uiWindow.btn1_out,self.uiWindow.btn2_out,self.uiWindow.btn3_out,self.uiWindow.btn4_out,self.uiWindow.btn5_out,self.uiWindow.btn6_out]
+        self.modelnames = {
+            'svm' : 'Support Vector Machine',
+            'lr' : 'Logistic Regression',
+            'knn': 'K-Nearest Model',
+            'rf': 'Random Forest Model',
+            'xgb' : 'XGBoost Model',
+            'dt':'Decision Tree Model'
+        }
+        
 
 
     def startUIWindow(self):
@@ -59,7 +70,24 @@ class MainWindow(QStackedWidget):
             self.uiWindow.file_name.setText(filename)
 
     def run_clicked(self):
-        if self..isChecked():
+        global algos_selected
+        if self.uiWindow.svm_select.isChecked():
+            algos_selected.append('svm')
+        if self.uiWindow.dt_select.isChecked():
+            algos_selected.append('dt')
+        if self.uiWindow.lr_select.isChecked():
+            algos_selected.append('lr')
+        if self.uiWindow.knn_select.isChecked():
+            algos_selected.append('knn')
+        if self.uiWindow.rf_select.isChecked():
+            algos_selected.append('rf')
+        output = predict(filename,algos_selected)
+        self.uiWindow.setCurrentIndex(pagesDict['Output'])
+        for index,i in enumerate(algos_selected):
+            self.btns[index].setText(self.modelname[i])
+        for i in range(len(algos_selected),7):
+            self.btn[index].hide()
+
 
 
 if __name__ == "__main__":
