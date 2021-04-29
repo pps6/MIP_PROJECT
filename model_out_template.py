@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QPixmap
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 import pandas as pd
 import numpy as np
 
@@ -50,5 +50,5 @@ def template(uiWindow, model_name, fraud_cases,filename):
         uiWindow.results_table.insertRow(row)
         for column in range(0,3):
             uiWindow.results_table.setItem(row, column,
-                                           QtWidgets.QTableWidgetItem(str(x[row,column])))
-
+                                           QtWidgets.QTableWidgetItem(
+                                               str(x[row,column])))
