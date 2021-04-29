@@ -494,6 +494,21 @@
         <height>151</height>
        </rect>
       </property>
+      <column>
+       <property name="text">
+        <string>Index</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Time</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Amount</string>
+       </property>
+      </column>
      </widget>
     </widget>
    </widget>
