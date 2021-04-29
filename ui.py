@@ -139,9 +139,6 @@ class Ui_StackedWidget(object):
         font.setPointSize(12)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
-        self.results_table = QtWidgets.QTableView(self.display)
-        self.results_table.setGeometry(QtCore.QRect(0, 530, 901, 151))
-        self.results_table.setObjectName("results_table")
         self.acc_field = QtWidgets.QLineEdit(self.display)
         self.acc_field.setGeometry(QtCore.QRect(250, 190, 91, 51))
         self.acc_field.setAutoFillBackground(False)
@@ -176,6 +173,11 @@ class Ui_StackedWidget(object):
         self.confusion_image.setText("")
         self.confusion_image.setPixmap(QtGui.QPixmap("ui/../final_images/tree_cm_plot.png"))
         self.confusion_image.setObjectName("confusion_image")
+        self.results_table = QtWidgets.QTableWidget(self.display)
+        self.results_table.setGeometry(QtCore.QRect(0, 521, 901, 151))
+        self.results_table.setObjectName("results_table")
+        self.results_table.setColumnCount(0)
+        self.results_table.setRowCount(0)
         self.scrollArea.setWidget(self.display)
         self.btn3_out = QtWidgets.QPushButton(self.OutputPage)
         self.btn3_out.setGeometry(QtCore.QRect(60, 370, 221, 51))
@@ -204,7 +206,7 @@ class Ui_StackedWidget(object):
         StackedWidget.addWidget(self.OutputPage)
 
         self.retranslateUi(StackedWidget)
-        StackedWidget.setCurrentIndex(0)
+        StackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(StackedWidget)
 
     def retranslateUi(self, StackedWidget):

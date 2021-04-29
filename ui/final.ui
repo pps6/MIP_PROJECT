@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="HomePage">
    <widget class="QPushButton" name="file_select">
@@ -384,16 +384,6 @@
        <string>  Accuracy</string>
       </property>
      </widget>
-     <widget class="QTableView" name="results_table">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>530</y>
-        <width>901</width>
-        <height>151</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLineEdit" name="acc_field">
       <property name="geometry">
        <rect>
@@ -493,6 +483,16 @@
       </property>
       <property name="pixmap">
        <pixmap>../final_images/tree_cm_plot.png</pixmap>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="results_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>521</y>
+        <width>901</width>
+        <height>151</height>
+       </rect>
       </property>
      </widget>
     </widget>
