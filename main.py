@@ -1,9 +1,8 @@
 from ui import Ui_StackedWidget
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
-from PyQt5.QtGui import QKeySequence
 from models import predict 
+from model_out_template import template
 
 pagesDict = {
         'Home': 0,
@@ -11,16 +10,26 @@ pagesDict = {
 }
 
 filename = ""
+output = ""
 algos_selected = []
+shortnames = {
+            'Support Vector Machine':'svm',
+            'Logistic Regression':'lr',
+            ' K-Nearest Neighbour':'knn',
+            ' Random Forest Tree':'rf',
+            'XGBoost Model':'xgb',
+            'Decision Tree Model':'dt'
+        }
 
 class MainWindow(QStackedWidget):
     def __init__(self,parent=None):
         super(MainWindow,self).__init__(parent)
         self.uiWindow = Ui_StackedWidget()
         self.startUIWindow()
+        self.btns = [self.uiWindow.btn1_out,self.uiWindow.btn2_out,self.uiWindow.btn3_out,
+                     self.uiWindow.btn4_out,self.uiWindow.btn5_out,self.uiWindow.btn6_out]
         self.maintain_operations()
         self.show()
-        self.btns = [self.uiWindow.btn1_out,self.uiWindow.btn2_out,self.uiWindow.btn3_out,self.uiWindow.btn4_out,self.uiWindow.btn5_out,self.uiWindow.btn6_out]
         self.modelnames = {
             'svm' : 'Support Vector Machine',
             'lr' : 'Logistic Regression',
@@ -52,14 +61,18 @@ class MainWindow(QStackedWidget):
         x = msg.exec_() 
 
     def maintain_operations(self):
+        global shortnames,output
         self.uiWindow.file_select.clicked.connect(lambda: self.file_dialog_open())
         self.uiWindow.run.clicked.connect(lambda: self.run_clicked())
         self.uiWindow.Back.clicked.connect(lambda: self.back_clicked())
+        for i in self.btns:
+            # print(i.text())
+            i.clicked.connect(lambda: self.model_clicked(i))
         # self.uiWindow.shade_opening_add_clear.clicked.connect(lambda: clear.clear_shade_opening_add(self))
         # self.uiWindow.shade_opening_modify_clear.clicked.connect(lambda: clear.clear_shade_opening_modify(self))
         # self.uiWindow.shade_opening_delete_clear.clicked.connect(lambda: clear.clear_shade_opening_delete(self))
         # self.uiWindow.shade_opening_view_clear.clicked.connect(lambda: clear.clear_shade_opening_view(self))
-        # self.uiWindow.colour_closing_stock_table.cellChanged.connect(lambda row, column: operations_callbacks.display_product_name(row, column, self, 0,
+
 
     def file_dialog_open(self):
         options = QFileDialog.Options()
@@ -71,7 +84,7 @@ class MainWindow(QStackedWidget):
             self.uiWindow.file_name.setText(filename)
 
     def run_clicked(self):
-        global filename
+        global filename, output
         global algos_selected
         if self.uiWindow.svm_select.isChecked():
             algos_selected.append('svm')
@@ -87,15 +100,11 @@ class MainWindow(QStackedWidget):
             algos_selected.append('rf')
         if len(algos_selected) > 0 and filename != "":
             output = predict(filename,algos_selected)
-            print("return")
-            print(output)
             self.setCurrentIndex(pagesDict['Output'])
             for index,i in enumerate(algos_selected):
                 self.btns[index].setText(self.modelnames[i])
-            print("First for")
             for i in range(len(algos_selected),6):
                 self.btns[i].hide()
-            print("Second For")
             algos_selected = []
         else:
             self.show_warning_info("No file or model selected")
@@ -107,6 +116,17 @@ class MainWindow(QStackedWidget):
         self.setCurrentIndex(pagesDict['Home'])
         for i in self.btns:
             i.show()
+
+    def model_clicked(self, i):
+        print("model_clicked")
+        self.setCurrentIndex(pagesDict['Output'])
+        global output,shortnames
+        model_name = shortnames[i.text()]
+        for j in output:
+            if j['model_name'] == model_name:
+                fraud_cases = j['output']
+                break
+        template(self.uiWindow,model_name,fraud_cases)
 
 
 if __name__ == "__main__":
