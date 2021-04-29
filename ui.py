@@ -149,7 +149,7 @@ class Ui_StackedWidget(object):
         self.modelname = QtWidgets.QLabel(self.display)
         self.modelname.setGeometry(QtCore.QRect(10, 20, 431, 41))
         font = QtGui.QFont()
-        font.setPointSize(27)
+        font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
         self.modelname.setFont(font)
@@ -204,7 +204,7 @@ class Ui_StackedWidget(object):
         StackedWidget.addWidget(self.OutputPage)
 
         self.retranslateUi(StackedWidget)
-        StackedWidget.setCurrentIndex(0)
+        StackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(StackedWidget)
 
     def retranslateUi(self, StackedWidget):
@@ -224,7 +224,7 @@ class Ui_StackedWidget(object):
         self.file_name.setText(_translate("StackedWidget", "Choose a csv file"))
         self.btn2_out.setText(_translate("StackedWidget", "Decision Tree Model"))
         self.download.setText(_translate("StackedWidget", "Download"))
-        self.btn6_out.setText(_translate("StackedWidget", " Random Forest Tree"))
+        self.btn6_out.setText(_translate("StackedWidget", "Random Forest Model"))
         self.btn1_out.setText(_translate("StackedWidget", "Support Vector Machine"))
         self.btn4_out.setText(_translate("StackedWidget", "Logistic Regression"))
         self.Back.setText(_translate("StackedWidget", "Back"))
@@ -233,7 +233,7 @@ class Ui_StackedWidget(object):
         self.label_7.setText(_translate("StackedWidget", "F1 - Score"))
         self.cases_label.setText(_translate("StackedWidget", "Total"))
         self.btn3_out.setText(_translate("StackedWidget", "XGBoost Model"))
-        self.btn5_out.setText(_translate("StackedWidget", " K-Nearest Neighbour"))
+        self.btn5_out.setText(_translate("StackedWidget", "K-Nearest Neighbour"))
         self.dashboard_out.setText(_translate("StackedWidget", "Dashboard"))
         self.label_4.setText(_translate("StackedWidget", "Output"))
 

@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="HomePage">
    <widget class="QPushButton" name="file_select">
@@ -282,7 +282,7 @@
      </font>
     </property>
     <property name="text">
-     <string> Random Forest Tree</string>
+     <string>Random Forest Model</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn1_out">
@@ -418,7 +418,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>27</pointsize>
+        <pointsize>16</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -530,7 +530,7 @@
      </font>
     </property>
     <property name="text">
-     <string> K-Nearest Neighbour</string>
+     <string>K-Nearest Neighbour</string>
     </property>
    </widget>
    <widget class="QPushButton" name="dashboard_out">
