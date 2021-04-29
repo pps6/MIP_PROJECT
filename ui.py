@@ -174,7 +174,9 @@ class Ui_StackedWidget(object):
         self.confusion_image.setPixmap(QtGui.QPixmap("ui/../final_images/tree_cm_plot.png"))
         self.confusion_image.setObjectName("confusion_image")
         self.results_table = QtWidgets.QTableWidget(self.display)
+        self.results_table.setEnabled(True)
         self.results_table.setGeometry(QtCore.QRect(0, 521, 901, 151))
+        self.results_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.results_table.setObjectName("results_table")
         self.results_table.setColumnCount(3)
         self.results_table.setRowCount(0)
@@ -212,7 +214,7 @@ class Ui_StackedWidget(object):
         StackedWidget.addWidget(self.OutputPage)
 
         self.retranslateUi(StackedWidget)
-        StackedWidget.setCurrentIndex(0)
+        StackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(StackedWidget)
 
     def retranslateUi(self, StackedWidget):

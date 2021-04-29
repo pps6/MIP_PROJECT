@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="HomePage">
    <widget class="QPushButton" name="file_select">
@@ -486,6 +486,9 @@
       </property>
      </widget>
      <widget class="QTableWidget" name="results_table">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -493,6 +496,9 @@
         <width>901</width>
         <height>151</height>
        </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <column>
        <property name="text">
