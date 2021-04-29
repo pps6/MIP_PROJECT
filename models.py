@@ -12,6 +12,21 @@ lr_model = joblib.load('models_final/lr.sav')
 svm_model = joblib.load('models_final/svm.sav')
 xgb_model = joblib.load('models_final/xgb.sav')
 
+model_data = {
+    'rf_accuracy': 0.9186,
+    'dt_accuracy': 0.9146,
+    'knn_accuracy': 0.9146,
+    'lr_accuracy': 0.9308,
+    'svm_accuracy': 0.9146,
+    'xgb_accuracy': 0.9430,
+    'rf_score': 0.9159,
+    'dt_score': 0.9156,
+    'knn_score': 0.9128,
+    'lr_score': 0.9317,
+    'svm_score': 0.9121,
+    'xgb_score': 0.9430
+}
+
 # print(accuracy_score(y_test, tree_yhat))
 transactions = pd.read_csv('datasets/data_part1.csv',index_col=None)
 processed_data = preprocessing(transactions)
@@ -22,4 +37,3 @@ result = np.where(knn_output == 1)
 frauds_cases = result[0]
 print(frauds_cases)
 print(len(frauds_cases))
-

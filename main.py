@@ -1,7 +1,7 @@
 from ui import Ui_StackedWidget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QGuiApplication
-from PyQt5.QtWidgets import QMainWindow,QMessageBox,QShortcut,QStackedWidget
+from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
 from PyQt5.QtGui import QKeySequence
 
 pagesDict = {
@@ -9,6 +9,8 @@ pagesDict = {
         'Output':1
 }
 
+filename = ""
+models_selected = []
 
 class MainWindow(QStackedWidget):
     def __init__(self,parent=None):
@@ -39,14 +41,25 @@ class MainWindow(QStackedWidget):
         x = msg.exec_() 
 
     def maintain_operations(self):
-        pass
-
+        self.uiWindow.file_select.clicked.connect(lambda: self.file_dialog_open())
+        self.uiWindow.run.clicked.connect(lambda: self.run_clicked())
         # self.uiWindow.shade_opening_add_clear.clicked.connect(lambda: clear.clear_shade_opening_add(self))
         # self.uiWindow.shade_opening_modify_clear.clicked.connect(lambda: clear.clear_shade_opening_modify(self))
         # self.uiWindow.shade_opening_delete_clear.clicked.connect(lambda: clear.clear_shade_opening_delete(self))
         # self.uiWindow.shade_opening_view_clear.clicked.connect(lambda: clear.clear_shade_opening_view(self))
         # self.uiWindow.colour_closing_stock_table.cellChanged.connect(lambda row, column: operations_callbacks.display_product_name(row, column, self, 0,
 
+    def file_dialog_open(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        global filename
+        filename, _ = QFileDialog.getOpenFileName(self, "Select Dataset", "",
+                                                  "CSV Files (*.csv)", options=options)
+        if filename:
+            self.uiWindow.file_name.setText(filename)
+
+    def run_clicked(self):
+        if self..isChecked():
 
 
 if __name__ == "__main__":
