@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="HomePage">
    <widget class="QPushButton" name="file_select">
@@ -384,7 +384,7 @@
        <string>  Accuracy</string>
       </property>
      </widget>
-     <widget class="QTableView" name="tableView">
+     <widget class="QTableView" name="results_table">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -394,7 +394,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="acc_field">
       <property name="geometry">
        <rect>
         <x>250</x>
@@ -407,7 +407,7 @@
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="modelname">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -448,7 +448,7 @@
        <string>F1 - Score</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="f1_field">
       <property name="geometry">
        <rect>
         <x>250</x>
@@ -479,7 +479,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_11">
+     <widget class="QLabel" name="confusion_image">
       <property name="geometry">
        <rect>
         <x>450</x>
