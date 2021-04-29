@@ -29,12 +29,12 @@ class MainWindow(QStackedWidget):
             'xgb' : 'XGBoost Model',
             'dt':'Decision Tree Model'
         }
-        
 
 
     def startUIWindow(self):
         self.uiWindow.setupUi(self)
-        self.uiWindow.Back.clicked.connect(lambda : self.setCurrentIndex(pagesDict['Home']))
+        # self.uiWindow.Back.clicked.connect(lambda : self.setCurrentIndex(pagesDict['Home']))
+        # self.uiWindow.run.clicked.connect(lambda: self.setCurrentIndex(pagesDict['Output']))
 
     def show_info_popup(self,message):
         #TODO change icon
@@ -54,6 +54,7 @@ class MainWindow(QStackedWidget):
     def maintain_operations(self):
         self.uiWindow.file_select.clicked.connect(lambda: self.file_dialog_open())
         self.uiWindow.run.clicked.connect(lambda: self.run_clicked())
+        self.uiWindow.Back.clicked.connect(lambda: self.back_clicked())
         # self.uiWindow.shade_opening_add_clear.clicked.connect(lambda: clear.clear_shade_opening_add(self))
         # self.uiWindow.shade_opening_modify_clear.clicked.connect(lambda: clear.clear_shade_opening_modify(self))
         # self.uiWindow.shade_opening_delete_clear.clicked.connect(lambda: clear.clear_shade_opening_delete(self))
@@ -70,24 +71,42 @@ class MainWindow(QStackedWidget):
             self.uiWindow.file_name.setText(filename)
 
     def run_clicked(self):
+        global filename
         global algos_selected
         if self.uiWindow.svm_select.isChecked():
             algos_selected.append('svm')
         if self.uiWindow.dt_select.isChecked():
             algos_selected.append('dt')
+        if self.uiWindow.xgb_select.isChecked():
+            algos_selected.append('xgb')
         if self.uiWindow.lr_select.isChecked():
             algos_selected.append('lr')
         if self.uiWindow.knn_select.isChecked():
             algos_selected.append('knn')
         if self.uiWindow.rf_select.isChecked():
             algos_selected.append('rf')
-        output = predict(filename,algos_selected)
-        self.uiWindow.setCurrentIndex(pagesDict['Output'])
-        for index,i in enumerate(algos_selected):
-            self.btns[index].setText(self.modelname[i])
-        for i in range(len(algos_selected),7):
-            self.btn[index].hide()
+        if len(algos_selected) > 0 and filename != "":
+            output = predict(filename,algos_selected)
+            print("return")
+            print(output)
+            self.setCurrentIndex(pagesDict['Output'])
+            for index,i in enumerate(algos_selected):
+                self.btns[index].setText(self.modelnames[i])
+            print("First for")
+            for i in range(len(algos_selected),6):
+                self.btns[i].hide()
+            print("Second For")
+            algos_selected = []
+        else:
+            self.show_warning_info("No file or model selected")
+        algos_selected = []
 
+    def back_clicked(self):
+        global algos_selected
+        algos_selected = []
+        self.setCurrentIndex(pagesDict['Home'])
+        for i in self.btns:
+            i.show()
 
 
 if __name__ == "__main__":

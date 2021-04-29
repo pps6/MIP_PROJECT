@@ -45,7 +45,7 @@ def predict(datasetFile,models_selected):
     # print(processed_data[1:10]
     getCases = lambda x:getFraudCases(x,processed_data)
     
-    output_res []
+    output_res = []
 
     for i in models_selected:
         if i == 'svm':
@@ -62,6 +62,7 @@ def predict(datasetFile,models_selected):
             fraud_cases = getCases(lr_model)
         output_res.append({
             'model_name':i,
-            'output':fraud_cases
+            'output': fraud_cases
         })
     # print(knn_output[knn_output==1])
+    return output_res
