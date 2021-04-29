@@ -5,14 +5,15 @@ import pandas as pd
 from preprocessing import preprocessing
 import numpy as np
 
-rf_model = joblib.load('models/rf.sav')
-dt_model = joblib.load('models/decision_tree.sav')
-knn_model = joblib.load('models/knn.sav')
-lr_model = joblib.load('models/lr.sav')
-svm_model = joblib.load('models/svm.sav')
-# xgb_model = joblib.load('models/xgb.sav')
+rf_model = joblib.load('models_final/rf.sav')
+dt_model = joblib.load('models_final/decision_tree.sav')
+knn_model = joblib.load('models_final/knn.sav')
+lr_model = joblib.load('models_final/lr.sav')
+svm_model = joblib.load('models_final/svm.sav')
+xgb_model = joblib.load('models_final/xgb.sav')
 
-transactions = pd.read_csv('datasets/data_part5.csv',index_col=0)
+# print(accuracy_score(y_test, tree_yhat))
+transactions = pd.read_csv('datasets/creditcard.csv',index_col=None)
 processed_data = preprocessing(transactions)
 # print(processed_data[1:10])
 knn_output = rf_model.predict(processed_data)
