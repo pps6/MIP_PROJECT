@@ -212,7 +212,7 @@ class Ui_StackedWidget(object):
         StackedWidget.addWidget(self.OutputPage)
 
         self.retranslateUi(StackedWidget)
-        StackedWidget.setCurrentIndex(1)
+        StackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(StackedWidget)
 
     def retranslateUi(self, StackedWidget):
