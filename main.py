@@ -28,6 +28,7 @@ class MainWindow(QStackedWidget):
         self.startUIWindow()
         self.btns = [self.uiWindow.btn1_out,self.uiWindow.btn2_out,self.uiWindow.btn3_out,
                      self.uiWindow.btn4_out,self.uiWindow.btn5_out,self.uiWindow.btn6_out]
+        self.setCurrentIndex(0)
         self.maintain_operations()
         self.show()
         self.modelnames = {
@@ -71,6 +72,10 @@ class MainWindow(QStackedWidget):
         self.uiWindow.btn4_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn4_out))
         self.uiWindow.btn5_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn5_out))
         self.uiWindow.btn6_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn6_out))
+        header = self.uiWindow.results_table.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
         # for i in self.btns:
         #     # print(i.text())
         #     i.clicked.connect(lambda: self.model_clicked(i))
@@ -121,6 +126,7 @@ class MainWindow(QStackedWidget):
 
     def model_clicked(self, i):
         # print("model_clicked")
+        global filename
         self.setCurrentIndex(pagesDict['Output'])
         global output,shortnames
         print(i.text())
@@ -129,7 +135,7 @@ class MainWindow(QStackedWidget):
             if j['model_name'] == model_name:
                 fraud_cases = j['output']
                 break
-        template(self.uiWindow,model_name,fraud_cases)
+        template(self.uiWindow,model_name,fraud_cases,filename)
 
 
 if __name__ == "__main__":

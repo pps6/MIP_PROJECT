@@ -1,4 +1,7 @@
 from PyQt5.QtGui import QPixmap
+from PyQt5 import QtCore, QtGui, QtWidgets
+import pandas as pd
+import numpy as np
 
 model_data = {
     'rf_accuracy': 0.9186,
@@ -25,7 +28,7 @@ modelfullnames = {
         }
 
 
-def template(uiWindow, model_name, fraud_cases):
+def template(uiWindow, model_name, fraud_cases,filename):
     global modelfullnames, model_data
     uiWindow.modelname.setText(modelfullnames[model_name])
     uiWindow.acc_field.setText(str(model_data[model_name + "_accuracy"]))
@@ -36,4 +39,16 @@ def template(uiWindow, model_name, fraud_cases):
         uiWindow.cases_label.setText(str(len(fraud_cases)) + " fraud transactions found.")
     pixmap = QPixmap("final_images/"+model_name+"_cm_plot.png")
     uiWindow.confusion_image.setPixmap(pixmap)
+    transactions = pd.read_csv(filename, index_col=None)
+    subset = transactions[["Time","Amount"]]
+    x = subset.loc[fraud_cases,:]
+    # x['Index'] = fraud_cases
+    x.reset_index(inplace=True)
+    # print(x.head())
+    x = np.array(x)
+    for row in range(0,len(x)):
+        uiWindow.results_table.insertRow(row)
+        for column in range(0,3):
+            uiWindow.results_table.setItem(row, column,
+                                           QtWidgets.QTableWidgetItem(str(x[row,column])))
 
