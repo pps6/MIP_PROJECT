@@ -105,8 +105,12 @@ class MainWindow(QStackedWidget):
             algos_selected.append('knn')
         if self.uiWindow.rf_select.isChecked():
             algos_selected.append('rf')
+        common_fraud_cases = []
         if len(algos_selected) > 0 and filename != "":
             output = predict(filename,algos_selected)
+            output_res = [i['output'] for i in output]
+            result = set(output_res[0]).intersection(*output_res[1:])
+            print(len(result),result)
             self.setCurrentIndex(pagesDict['Output'])
             for index,i in enumerate(algos_selected):
                 self.btns[index].setText(self.modelnames[i])

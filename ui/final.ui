@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>0</number>
   </property>
   <widget class="QWidget" name="HomePage">
    <widget class="QPushButton" name="file_select">
@@ -349,10 +349,10 @@
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOn</enum>
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOn</enum>
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
     <property name="widgetResizable">
      <bool>true</bool>
@@ -362,8 +362,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>896</width>
-       <height>676</height>
+       <width>917</width>
+       <height>697</height>
       </rect>
      </property>
      <widget class="QLabel" name="label_5">
@@ -494,7 +494,7 @@
         <x>0</x>
         <y>480</y>
         <width>901</width>
-        <height>151</height>
+        <height>211</height>
        </rect>
       </property>
       <property name="editTriggers">
