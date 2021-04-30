@@ -126,12 +126,12 @@ class Ui_StackedWidget(object):
         self.Back.setObjectName("Back")
         self.scrollArea = QtWidgets.QScrollArea(self.OutputPage)
         self.scrollArea.setGeometry(QtCore.QRect(340, 120, 921, 701))
-        self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.display = QtWidgets.QWidget()
-        self.display.setGeometry(QtCore.QRect(0, 0, 896, 676))
+        self.display.setGeometry(QtCore.QRect(0, 0, 917, 697))
         self.display.setObjectName("display")
         self.label_5 = QtWidgets.QLabel(self.display)
         self.label_5.setGeometry(QtCore.QRect(160, 180, 101, 61))
@@ -175,7 +175,7 @@ class Ui_StackedWidget(object):
         self.confusion_image.setObjectName("confusion_image")
         self.results_table = QtWidgets.QTableWidget(self.display)
         self.results_table.setEnabled(True)
-        self.results_table.setGeometry(QtCore.QRect(0, 480, 901, 151))
+        self.results_table.setGeometry(QtCore.QRect(0, 480, 901, 211))
         self.results_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.results_table.setObjectName("results_table")
         self.results_table.setColumnCount(3)
@@ -217,7 +217,7 @@ class Ui_StackedWidget(object):
         StackedWidget.addWidget(self.OutputPage)
 
         self.retranslateUi(StackedWidget)
-        StackedWidget.setCurrentIndex(1)
+        StackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(StackedWidget)
 
     def retranslateUi(self, StackedWidget):
