@@ -2,7 +2,7 @@ from ui import Ui_StackedWidget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
 from models import predict 
-from model_out_template import template
+from model_out_template import template,createGraph
 
 pagesDict = {
         'Home': 0,
@@ -107,6 +107,7 @@ class MainWindow(QStackedWidget):
             algos_selected.append('rf')
         common_fraud_cases = []
         if len(algos_selected) > 0 and filename != "":
+            createGraph(algos_selected)
             output = predict(filename,algos_selected)
             output_res = [i['output'] for i in output]
             result = set(output_res[0]).intersection(*output_res[1:])
@@ -120,6 +121,7 @@ class MainWindow(QStackedWidget):
         else:
             self.show_warning_info("No file or model selected")
         algos_selected = []
+
 
     def back_clicked(self):
         global algos_selected
