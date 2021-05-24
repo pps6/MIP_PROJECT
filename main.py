@@ -2,7 +2,8 @@ from ui import Ui_StackedWidget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
 from models import predict 
-from model_out_template import template,createGraph
+from model_out_template import template,createGraph,dashboard_template
+from PyQt5.QtGui import QPixmap
 
 pagesDict = {
         'Home': 0,
@@ -20,6 +21,10 @@ shortnames = {
             'XGBoost Model':'xgb',
             'Decision Tree Model':'dt'
         }
+
+# Fraud Transaction Intersection of all Models
+results_intersection = []
+
 
 class MainWindow(QStackedWidget):
     def __init__(self,parent=None):
@@ -39,6 +44,7 @@ class MainWindow(QStackedWidget):
             'xgb' : 'XGBoost Model',
             'dt':'Decision Tree Model'
         }
+
 
 
     def startUIWindow(self):
@@ -72,6 +78,7 @@ class MainWindow(QStackedWidget):
         self.uiWindow.btn4_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn4_out))
         self.uiWindow.btn5_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn5_out))
         self.uiWindow.btn6_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn6_out))
+        self.uiWindow.dashboard_out.clicked.connect(lambda : self.dashboard_clicked(self.uiWindow.dashboard_out))
         header = self.uiWindow.results_table.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
@@ -108,15 +115,21 @@ class MainWindow(QStackedWidget):
         common_fraud_cases = []
         if len(algos_selected) > 0 and filename != "":
             createGraph(algos_selected)
+            pixmap_f1 = QPixmap("./images/f1_graph.png")
+            pixmap_acc = QPixmap('./images/acc_graph.png')
+            self.uiWindow.acc_bar_plot.setPixmap(pixmap_f1)
+            self.uiWindow.confusion_image.setPixmap(pixmap_acc)
             output = predict(filename,algos_selected)
             output_res = [i['output'] for i in output]
-            result = set(output_res[0]).intersection(*output_res[1:])
-            print(len(result),result)
+            global results_intersection
+            results_intersection = set(output_res[0]).intersection(*output_res[1:])
+            print(len(results_intersection),results_intersection)
             self.setCurrentIndex(pagesDict['Output'])
             for index,i in enumerate(algos_selected):
                 self.btns[index].setText(self.modelnames[i])
             for i in range(len(algos_selected),6):
                 self.btns[i].hide()
+            self.dashboard_clicked(self.uiWindow.dashboard_out)
             algos_selected = []
         else:
             self.show_warning_info("No file or model selected")
@@ -129,6 +142,16 @@ class MainWindow(QStackedWidget):
         self.setCurrentIndex(pagesDict['Home'])
         for i in self.btns:
             i.show()
+
+    def dashboard_clicked(self,i):
+        self.uiWindow.acc_bar_plot.show()
+        self.uiWindow.modelname.setText('Dashboard')
+        pixmap = QPixmap("./images/acc_graph.png")
+        self.uiWindow.confusion_image.setPixmap(pixmap)
+        global results_intersection,filename
+        self.uiWindow.cases_label.setText(f'{str(len(results_intersection))} fraud transactions found.')
+        dashboard_template(self.uiWindow,results_intersection,filename)
+
 
     def model_clicked(self, i):
         # print("model_clicked")

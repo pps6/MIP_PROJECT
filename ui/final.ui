@@ -14,7 +14,7 @@
    <string>StackedWidget</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <widget class="QWidget" name="HomePage">
    <widget class="QPushButton" name="file_select">
@@ -451,8 +451,8 @@
      <widget class="QLabel" name="cases_label">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>380</y>
+        <x>0</x>
+        <y>430</y>
         <width>311</width>
         <height>61</height>
        </rect>
@@ -472,17 +472,20 @@
      <widget class="QLabel" name="confusion_image">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>50</y>
-        <width>431</width>
-        <height>431</height>
+        <x>500</x>
+        <y>70</y>
+        <width>381</width>
+        <height>351</height>
        </rect>
       </property>
       <property name="text">
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../final_images/tree_cm_plot.png</pixmap>
+       <pixmap>../images/acc_graph.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QTableWidget" name="results_table">
@@ -524,6 +527,25 @@
         <set>AlignCenter</set>
        </property>
       </column>
+     </widget>
+     <widget class="QLabel" name="acc_bar_plot">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>70</y>
+        <width>381</width>
+        <height>351</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../images/f1_graph.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
    </widget>

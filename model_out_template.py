@@ -31,6 +31,7 @@ modelfullnames = {
 
 def template(uiWindow, model_name, fraud_cases,filename):
     global modelfullnames, model_data
+    uiWindow.acc_bar_plot.hide()
     uiWindow.modelname.setText(modelfullnames[model_name])
     uiWindow.acc_field.setText(str(model_data[model_name + "_accuracy"]))
     uiWindow.f1_field.setText(str(model_data[model_name + "_score"]))
@@ -47,6 +48,24 @@ def template(uiWindow, model_name, fraud_cases,filename):
     x.reset_index(inplace=True)
     # print(x.head())
     x = np.array(x)
+    uiWindow.results_table.setRowCount(0)
+    for row in range(0,len(x)):
+        uiWindow.results_table.insertRow(row)
+        for column in range(0,3):
+            uiWindow.results_table.setItem(row, column,
+                                           QtWidgets.QTableWidgetItem(
+                                               str(x[row,column])))
+
+def dashboard_template(uiWindow,fraud_cases,filename):
+
+    transactions = pd.read_csv(filename, index_col=None)
+    subset = transactions[["Time","Amount"]]
+    x = subset.loc[fraud_cases,:]
+    # x['Index'] = fraud_cases
+    x.reset_index(inplace=True)
+    # print(x.head())
+    x = np.array(x)
+    uiWindow.results_table.setRowCount(0)
     for row in range(0,len(x)):
         uiWindow.results_table.insertRow(row)
         for column in range(0,3):
@@ -64,17 +83,17 @@ def createGraph(models):
     freq_series_acc = pd.Series(frequencies_acc)
     freq_series_f1 = pd.Series(frequencies_f1) 
 
-    x_labels = [modelfullnames[i] for i in models]
+    x_labels = [i.upper() for i in models]
 
 
 
     # Plot the figure.
     plt.figure(figsize=(12, 8))
     ax = freq_series_acc.plot(kind='bar')
-    ax.set_title('Accuracy Scores')
+    ax.set_title('Accuracy Scores',fontsize=20)
     ax.set_xlabel('Models')
     ax.set_ylabel('Accuary')
-    ax.set_xticklabels(x_labels)
+    ax.set_xticklabels(x_labels,rotation=0,fontsize=18)
 
     rects = ax.patches
 
@@ -83,17 +102,17 @@ def createGraph(models):
 
     for index,data in enumerate(labels_acc):
         # height = rect.get_height()
-        ax.text(index,data+0.01,data,
-                ha='center', va='bottom')
+        ax.text(index,data/2,data,
+                ha='center', va='bottom',Bbox = dict(facecolor = 'white', alpha = .5),fontsize=18)
 
     plt.savefig('images/acc_graph.png',bbox_inches='tight') 
     # F1 Score
     plt.figure(figsize=(12, 8))
     ax = freq_series_f1.plot(kind='bar')
-    ax.set_title('F1 Scores')
+    ax.set_title('F1 Scores',fontsize=18)
     ax.set_xlabel('Models')
     ax.set_ylabel('F1 Scores')
-    ax.set_xticklabels(x_labels)
+    ax.set_xticklabels(x_labels,rotation=0,fontsize=18)
 
     rects = ax.patches
 
@@ -102,7 +121,7 @@ def createGraph(models):
 
     for index,data in enumerate(labels_f1):
         # height = rect.get_height()
-        ax.text(index,data+0.01,data,
-                ha='center', va='bottom')
+        ax.text(index,data/2,data,
+                ha='center', va='bottom',Bbox = dict(facecolor = 'white', alpha = .5),fontsize=18)
 
     plt.savefig('images/f1_graph.png',bbox_inches='tight') 
