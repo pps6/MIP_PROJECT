@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
 from models import predict 
 from model_out_template import template,createGraph,dashboard_template
 from PyQt5.QtGui import QPixmap
+from pdf import create_pdf
 
 pagesDict = {
         'Home': 0,
@@ -53,8 +54,11 @@ class MainWindow(QStackedWidget):
         # self.uiWindow.run.clicked.connect(lambda: self.setCurrentIndex(pagesDict['Output']))
 
     def show_info_popup(self,message):
-        #TODO change icon
         msg = QMessageBox()
+        msg.show()
+        height = self.height()
+        width = self.width()
+        msg.move(( width - msg.width() )//2,height//2)
         msg.setWindowTitle("Message")
         msg.setText(message)
         msg.setIcon(QMessageBox.Information)
@@ -79,6 +83,7 @@ class MainWindow(QStackedWidget):
         self.uiWindow.btn5_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn5_out))
         self.uiWindow.btn6_out.clicked.connect(lambda: self.model_clicked(self.uiWindow.btn6_out))
         self.uiWindow.dashboard_out.clicked.connect(lambda : self.dashboard_clicked(self.uiWindow.dashboard_out))
+        self.uiWindow.download.clicked.connect(lambda:self.download_clicked())
         header = self.uiWindow.results_table.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
@@ -166,6 +171,10 @@ class MainWindow(QStackedWidget):
                 break
         template(self.uiWindow,model_name,fraud_cases,filename)
 
+    def download_clicked(self):
+        global filename,results_intersection
+        output_filename = create_pdf(filename,results_intersection)
+        self.show_info_popup(f"Output Saved to {output_filename}")
 
 if __name__ == "__main__":
     import sys
