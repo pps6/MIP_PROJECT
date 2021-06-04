@@ -1,4 +1,4 @@
-from ui import Ui_StackedWidget
+from ui import Ui_stackedWidget
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QFileDialog,QStackedWidget
 from models import predict 
@@ -30,7 +30,7 @@ results_intersection = []
 class MainWindow(QStackedWidget):
     def __init__(self,parent=None):
         super(MainWindow,self).__init__(parent)
-        self.uiWindow = Ui_StackedWidget()
+        self.uiWindow = Ui_stackedWidget()
         self.startUIWindow()
         self.btns = [self.uiWindow.btn1_out,self.uiWindow.btn2_out,self.uiWindow.btn3_out,
                      self.uiWindow.btn4_out,self.uiWindow.btn5_out,self.uiWindow.btn6_out]
