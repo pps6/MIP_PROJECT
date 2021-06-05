@@ -28,7 +28,7 @@ def create_pdf(filename,fraud_cases):
     # headers from data matrix.
     
     now = datetime.now() 
-    timestamp = now.strftime('%B %d, %Y %H:%M:%S')
+    timestamp = now.strftime('%B %d %Y %H-%M-%S')
 
     headers = ['Sr No.','Index','Time','Amount']
      
@@ -78,6 +78,7 @@ def create_pdf(filename,fraud_cases):
             pdf.ln(2*th)
      
     output_filename = 'output_' + timestamp + '.pdf'
+    #output_filename = 'output_June_05.pdf'
     pdf.output(output_filename,'F')
     return output_filename
      
